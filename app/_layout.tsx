@@ -1,6 +1,16 @@
-import { Slot } from "expo-router";
+import { Stack } from 'expo-router/stack';
+import AuthProvider from '@/context/authProvider';
 
-// Import your global CSS file
-import "@/global.css";
-
-export default Slot;
+export default function Layout() {
+  return (
+    <AuthProvider>
+    <Stack>
+      <Stack.Screen name="(auth)/(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen
+            name="(public)/login"
+            options={{ headerShown: false }}
+          />
+    </Stack>
+    </AuthProvider>
+  );
+}

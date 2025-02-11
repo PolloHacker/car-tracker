@@ -1,7 +1,7 @@
 import { Image, Platform, View } from 'react-native';
 
 
-export default function TabTwoScreen() {
+export default function ExploreScreen() {
   return (
     <View></View>
   );
