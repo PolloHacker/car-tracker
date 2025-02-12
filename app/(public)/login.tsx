@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Text, View, TextInput, Alert, SafeAreaView, TouchableOpacity } from "react-native";
+import { StatusBar } from 'expo-status-bar';
 import { useAuth } from "@/context/authProvider";
+
+import '@/global.css';
 
 export default function login() {
     const [username, setUsername] = useState("");
@@ -16,8 +19,8 @@ export default function login() {
 
     return (
         <SafeAreaView className="flex-1 flex flex-col">
-            <View className="flex-1 flex flex-col justify-center px-4">
-                <Text className="text-3xl mb-2">Log in</Text>
+            <View className="flex-1 flex flex-col justify-center px-4 bg-primary">
+                <Text className="text-3xl mb-2 text-primary-light">Log in</Text>
                 <Text className="mb-2 opacity-70">
                     Any username and password is a valid login.
                 </Text>
@@ -25,7 +28,7 @@ export default function login() {
                     <Text className="font-semibold text-lg mb-1">Username</Text>
                     <TextInput
                         placeholder="username"
-                        className="border border-gray-500 rounded-xl p-3"
+                        className="border border-light rounded-xl p-3"
                         value={username}
                         onChangeText={setUsername}
                     />
@@ -45,6 +48,7 @@ export default function login() {
                     onPress={() => _login(username, password)}
                 />
             </View>
+            <StatusBar style="auto" animated/>
         </SafeAreaView>
     );
 }

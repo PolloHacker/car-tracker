@@ -1,28 +1,26 @@
-import { ReactNode } from 'react';
-import { createContext, useContext, useState } from 'react';
+import React, { createContext } from "react";
+import { View } from "react-native";
+import { useColorScheme } from "nativewind";
+import { themes } from "@/utils/color-theme";
 
+interface ThemeProviderProps {
+    children: React.ReactNode;
+}
 interface ThemeContextType {
-    themeMode: string;
-    switchTheme: (theme: string) => void;
+    theme: "light" | "dark";
 }
 
-const ThemeContext = createContext<ThemeContextType>({ themeMode: 'light', switchTheme: (theme) => {} });
+export const ThemeContext = createContext<ThemeContextType>({ theme: "light" });
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [themeMode, setThemeMode] = useState('light');
+export const ThemeProvider = ({ children }: ThemeProviderProps) => {
+    const { colorScheme } = useColorScheme();
+    const colorTheme = colorScheme == "dark" ? "dark" : "light";
 
-const switchTheme = (theme: string): void => {
-    setThemeMode(theme);
-    document.documentElement.className = theme;
+    return (
+        <ThemeContext.Provider value={{ theme: colorTheme }}>
+            <View style={themes[colorTheme]} className="flex-1">
+                {children}
+            </View>
+        </ThemeContext.Provider>
+    );
 };
-
-  return (
-    <ThemeContext.Provider value={{ themeMode, switchTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-}
-
-export function useTheme() {
-  return useContext(ThemeContext);
-}
